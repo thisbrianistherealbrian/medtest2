@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('stripe_customer_id')->nullable()->unique();
+            $table->string('subscription_status')->default('inactive');
+            $table->timestamp('subscription_end')->nullable();
+            $table->integer('max_projects');
+            $table->integer('current_projects_count');
             $table->timestamps();
         });
 
